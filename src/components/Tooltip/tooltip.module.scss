@@ -19,17 +19,14 @@
   color: #FFFFFF;
   background-color: #FF8E00;
 
-  border-radius: 5px ;
+  border-radius: 5px;
   text-align: center;
   white-space: pre-line;
-  font-weight: 700 ;
+  font-weight: 700;
 
   cursor: pointer;
-  transition: .5s;
 
-}
-
-.tooltip:hover {
-  background-color: #be6b02;
-  transition: .5s;
+  &:hover {
+    background-color: #c47303;
+  }
 }

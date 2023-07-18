@@ -1,20 +1,6 @@
-
-export enum deliveryDate {
-  today = "today",
-  tomorrow = "tomorrow",
-  lates = "lates",
+export interface Input  {
+  type: string,
+  text: string,
+  name?:string
 }
-
-export enum typeProduct {
-  technic = "техника",
-  accessories = "аксессуар",
-  detail = "деталь"
-}
-
-export interface ProductType {
-  id: number,
-  type: typeProduct,
-  title: string,
-  delivery: deliveryDate //дата доставки
-  isStock: boolean //в наличии
-}
+export type InputNode = Array<Input> | Input

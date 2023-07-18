@@ -1,17 +1,12 @@
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.catalog {
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 500px;
-  background-color: lightcyan;
-  margin: 10px;
-  border-radius: 15px;
+
+  p {
+    font-size: 35px;
+    margin: 20px;
+  }
 }

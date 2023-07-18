@@ -1,43 +1,55 @@
-import React from 'react';
+import React, {ReactElement, useEffect, useRef, useState} from "react";
 import styles from "./tooltip.module.scss"
 import {useRecoilState} from "recoil";
-
-import {tooltipState, activeTooltip, tooltipTimer} from "../../store/tooltipState.ts";
+import {tooltipAtom} from "../../store/tooltip.ts";
+import {useTimer} from "../../hooks/useTimer.ts";
 
 interface TooltipProps {
-  children: React.ReactElement,
-  index: number
+  children: ReactElement,
+  text: string
 }
+const Tooltip: React.FC<TooltipProps> = ({ children, text }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const ref = useRef(null);
+  const [tooltip, setTooltip] = useRecoilState(tooltipAtom)
 
-const Tooltip: React.FC<TooltipProps> = ({children, index}) => {
+  const {isRunning, startTimer, stopTimer} = useTimer()
 
-  const [showTooltip, setShowTooltip] = useRecoilState(tooltipState)
-  const [currentTooltip, setCurrentTooltip] = useRecoilState(activeTooltip)
-  const [timer, setTimer] = useRecoilState(tooltipTimer)
-
-  const isTooltipActive = showTooltip && currentTooltip == index
-
-  const swapShow = () => {
-    setCurrentTooltip(index)
-    setShowTooltip(true)
-
-    if (timer) {
-      clearTimeout(timer)
+  const handleChange = () => {
+    setIsOpen(true);
+    setTooltip(ref.current)
+    if (isRunning) {
+      stopTimer()
     }
+    startTimer(() => {
+      setIsOpen(false);
+    },  3000)
+  };
 
-    const timerId = setTimeout(() => {
-      setShowTooltip(false)
-      console.log(timerId)
-    }, 3000)
-
-    setTimer(timerId)
+  const handleClick = () => {
+    console.log("Произвольный текст")
   }
+
+  useEffect(() => {
+    if (tooltip !== ref.current) {
+      setIsOpen(false);
+
+      if (isRunning) {
+        stopTimer()
+      }
+    }
+  }, [tooltip])
+
   return (
-    <div className={styles.container} onClick={swapShow}>
+    <div ref={ref} onChange={handleChange} className={styles.container}>
       {children}
-      {isTooltipActive && <div className={styles.tooltip}>Показать</div>}
+      {isOpen && (
+        <div className={styles.tooltip} onClick={handleClick}>
+          {text}
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default Tooltip;

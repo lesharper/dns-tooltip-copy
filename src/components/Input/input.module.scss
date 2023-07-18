@@ -1,0 +1,26 @@
+.input {
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px;
+  min-width: 300px;
+  margin: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+
+  box-shadow: 1px 0 8px 10px rgba(214, 214, 214, 0.2);
+
+}
+
+.input input {
+  margin-right: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px lightgrey solid;
+  outline: none;
+  font-size: 20px;
+}
+
+.input:hover {
+  background-color: #ffefd7;
+}
