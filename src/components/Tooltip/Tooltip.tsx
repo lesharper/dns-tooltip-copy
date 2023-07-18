@@ -28,6 +28,7 @@ const Tooltip: React.FC<TooltipProps> = ({ children, text }) => {
 
   const handleClick = () => {
     console.log("Произвольный текст")
+    setIsOpen(false);
   }
 
   useEffect(() => {
